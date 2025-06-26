@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  api:
+    build: .
+    ports:
+      - "5000:80"
+    depends_on:
+      - sql
+      - rabbitmq
+      - redis
+
+  sql:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      SA_PASSWORD: ""
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+  web_api:
+     build:
+            dockerfile: WebApi/Dockerfile
+     ports:
+            - 5000:80
+     depends_on:
+            - sql
+  # redis:
+  #   image: redis
+
+  # rabbitmq:
+  #   image: rabbitmq:management
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
