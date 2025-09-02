@@ -34,6 +34,7 @@ namespace ShopEasy.API.Controllers
         }
 
         // POST: Products/Create
+        [Authorize]
         [HttpPost]       
         public async Task<IActionResult> Create(ProductCreateDto dto)
         {
